@@ -10,4 +10,4 @@ dependencies = [
 [[package]]
 name = "lang_parser"
 version = "0.1.0"
-source = "git+https://github.com/Monksc/ll1_parser.git?branch=main#3bd57c0845ec96e8b2d6cabc9177f2ce1f90fea3"
+source = "git+https://github.com/Monksc/ll1_parser.git?branch=main#5da7a4467005b8fb551b43af4c785e483339e805"

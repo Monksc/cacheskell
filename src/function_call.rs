@@ -33,6 +33,13 @@ impl FunctionCall {
         &self.parameters
     }
 
+    pub fn add_parameters(&mut self, params : &Vec<Expression>) {
+        for p in params {
+            self.parameters.push(p.clone());
+        }
+    }
+
+
     pub fn replace_variables(&self, 
         variables: &HashMap<String, Expression>) -> FunctionCall {
 

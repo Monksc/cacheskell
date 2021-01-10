@@ -1,3 +1,6 @@
+#![allow(dead_code)]
+#![allow(unused_imports)]
+
 use std::env;
 use std::fs;
 use std::collections::HashMap;
@@ -38,11 +41,45 @@ fn sub(expressions: &Vec<Expression>) -> Expression {
     return Expression::Int(69);
 }
 
+fn mult(expressions: &Vec<Expression>) -> Expression {
+    if expressions.len() == 2 {
+        match (&expressions[0], &expressions[1]) {
+            (Expression::Int(x1), Expression::Int(x2)) => return Expression::Int(x1 * x2),
+            (x1, x2) => println!("{:#?}\n{:#?}", x1, x2),
+        }
+    }
+
+    return Expression::Int(69);
+}
+
+fn div(expressions: &Vec<Expression>) -> Expression {
+    if expressions.len() == 2 {
+        match (&expressions[0], &expressions[1]) {
+            (Expression::Int(x1), Expression::Int(x2)) => return Expression::Int(x1 / x2),
+            (x1, x2) => println!("{:#?}\n{:#?}", x1, x2),
+        }
+    }
+
+    return Expression::Int(69);
+}
+
+fn mod_op(expressions: &Vec<Expression>) -> Expression {
+    if expressions.len() == 2 {
+        match (&expressions[0], &expressions[1]) {
+            (Expression::Int(x1), Expression::Int(x2)) => return Expression::Int(x1 % x2),
+            (x1, x2) => println!("{:#?}\n{:#?}", x1, x2),
+        }
+    }
+
+    return Expression::Int(69);
+}
+
+
 fn print(expressions: &Vec<Expression>) -> Expression {
 
     for expr in expressions {
         match expr {
-            Expression::FuncCall(c) => println!("{:#?}", c),
+            Expression::FuncCall(c)     => println!("{:#?}", c),
             Expression::Variable(v)     => println!("{:#?}", v),
             Expression::Boolean(b)      => println!("{:#?}", b),
             Expression::Int(i)          => println!("{:#?}", i),
@@ -199,7 +236,7 @@ fn main() {
     if let Ok(p) = interp.parse(&"program".to_string(), &contents) {
         parse = p;
     } else {
-        panic!();
+        panic!("Could not parse language");
     }
 
     //println!("{:#?}", parse);
@@ -215,6 +252,9 @@ fn main() {
     functions.insert(String::from("equal"), equal);
     functions.insert(String::from("add"), add);
     functions.insert(String::from("sub"), sub);
+    functions.insert(String::from("mult"), mult);
+    functions.insert(String::from("div"), div);
+    functions.insert(String::from("mod"), mod_op);
     functions.insert(String::from("print"), print);
 
     let mut inter = lambda_lang::Interpreter::from(convertedcode_functions, functions);

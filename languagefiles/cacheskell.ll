@@ -9,9 +9,10 @@ multipleFuncCases   -> functionCases manyWhitespace multipleFuncCasesT;
 multipleFuncCasesT  -> functionCases manyWhitespace multipleFuncCasesT | epsilon;
 functionCases       -> '|' manyWhitespace boolExpression manyWhitespace '=' manyWhitespace expression;
 
-functionCall        -> '(' manyWhitespace identifier manyWhitespace functionCallT ')';
+functionCall        -> '(' manyWhitespace functionCallExpression manyWhitespace functionCallT ')';
 functionCallT       -> expression manyWhitespace functionCallT | epsilon;
 
+functionCallExpression -> identifier | functionCall;
 boolExpression      -> expression;
 expression          -> functionCall | variable;
 variable            -> bool | integer | identifier;

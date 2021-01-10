@@ -30,8 +30,10 @@ impl FunctionCache {
 
         let index = self.get_index(key);
 
-        if let Some((_, value)) = &self.cache[index] {
-            return Some(value.clone());
+        if let Some((key2, value)) = &self.cache[index] {
+            if key == key2 {
+                return Some(value.clone());
+            }
         }
 
         None

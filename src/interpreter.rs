@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use std::collections::HashMap;
 
 use super::*;
@@ -15,7 +16,7 @@ impl Interpreter {
         Interpreter { 
             function_map: HashMap::new(), 
             preset_functions: HashMap::new(),
-            cache: FunctionCache::new(512),
+            cache: FunctionCache::new(8),
         }
     }
 
@@ -25,7 +26,7 @@ impl Interpreter {
         Interpreter { 
             function_map: functions,
             preset_functions: preset_functions,
-            cache: FunctionCache::new(512),
+            cache: FunctionCache::new(8),
         }
     }
 

@@ -92,11 +92,28 @@ fn convert_functioncall_params(parser : &lang_parser::LanguageProduction,
     }
 }
 
+fn convert_functionname(parser : &lang_parser::LanguageProduction) -> FunctionCall {
+
+    if parser.index == 0 {
+        if let LanguageProductionOrTerm::Prod(p) = &parser.productions[0] {
+            let id = convert_identifier(&p);
+            let func_call = FunctionCall::from(id, vec![]);
+            return func_call;
+        }
+    }
+
+    if let LanguageProductionOrTerm::Prod(p) = &parser.productions[0] {
+        return convert_functioncall(&p);
+    }
+
+    panic!("Could not convert funtion name");
+}
+
 fn convert_functioncall(parser : &lang_parser::LanguageProduction) -> FunctionCall {
 
-    let function_name;
+    let mut function;
     if let LanguageProductionOrTerm::Prod(p) = &parser.productions[2] {
-        function_name = convert_identifier(&p);
+        function = convert_functionname(&p);
     } else { panic!(); }
 
     let mut params = Vec::new();
@@ -105,7 +122,9 @@ fn convert_functioncall(parser : &lang_parser::LanguageProduction) -> FunctionCa
         convert_functioncall_params(&p, &mut params);
     }
 
-    return FunctionCall::from(function_name, params);
+    function.add_parameters(&params);
+
+    return function;
 }
 
 fn convert_expression(parser : &lang_parser::LanguageProduction) -> Expression {
