@@ -45,12 +45,21 @@ impl FunctionCall {
 
         let mut expressions = Vec::new();
 
+        let fname = if let Some(Expression::FuncCall(expr)) = variables.get(&self.function_name) {
+            for p in expr.get_parameters() {
+                expressions.push(p.replace_variables(variables));
+            }
+            expr.get_name().clone()
+        } else {
+            self.function_name.clone()
+        };
+
         for exp in &self.parameters {
             expressions.push(exp.replace_variables(variables));
         }
 
         return FunctionCall {
-            function_name: self.function_name.clone(),
+            function_name: fname,
             parameters: expressions,
         };
     }
